@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style type="text/css">
+        * {
+            font-size: 14px;
+            font-family: "微软雅黑";
+            vertical-align: middle;
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 160px;
+            height: 120px;
+        }
+
+        /*span{display: inline-block;}*/
+
+        .imfor_top div {
+            height: 40px;
+            background-color: deepskyblue;
+            font-weight: bold;
+        }
+
+        .imfor div {
+            height: 140px;
+            line-height: 120px;
+        }
+
+        .imfor:hover {
+            background: RGB(238, 246, 255);
+        }
+
+        .check,
+        .check_top {
+            width: 70px;
+        }
+
+        .pudc,
+        .pudc_top {
+            width: 400px;
+        }
+
+        .pices,
+        .pices_top {
+            width: 60px;
+        }
+
+        .totle {
+            color: red;
+        }
+
+        .num,
+        .num_top {
+            width: 90px;
+        }
+
+        .num input {
+            width: 40px;
+        }
+
+        .num span {
+            height: 23px;
+            width: 17px;
+            border: 1px solid #e5e5e5;
+            background: #f0f0f0;
+            text-align: center;
+            line-height: 23px;
+            color: #444;
+            cursor: pointer;
+        }
+
+        .totle,
+        .totle_top {
+            width: 100px;
+        }
+
+        .del,
+        .del_top {
+            width: 60px;
+            cursor: pointer;
+        }
+
+        .imfor_top div,
+        .imfor div {
+            float: left;
+            border: 1px solid deepskyblue;
+            text-align: center;
+        }
+
+        .imfor_top,
+        .imfor {
+            width: 800px;
+        }
+
+        .foot {
+            float: inherit;
+        }
+
+        #box,
+        #content_box {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        .foot_add,
+        .foot_del {
+            float: left;
+            cursor: pointer;
+            margin-left: 10px;
+            margin-top: 14px;
+        }
+
+        .foot {
+            width: 800px;
+            background-color: #eaeaea;
+        }
+
+        .foot_tol,
+        .foot_cash {
+            float: right;
+            cursor: pointer;
+            width: 80px;
+            margin-top: 14px;
+            margin-left: 100px;
+        }
+
+        #susum {
+            color: red;
+        }
+
+        h3 {
+            text-align: center;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <h3>购物车</h3>
+
+        <div id="box">
+            <div id="content_box">
+                <div class="imfor_top">
+                    <div class="check_top">
+                        <input type="checkbox" id="all" @click="boxinfo" v-model="isCheckAll" />全选
+                    </div>
+                    <div class="pudc_top">商品</div>
+                    <div class="pices_top">单价</div>
+                    <div class="num_top">数量</div>
+                    <div class="totle_top">小计</div>
+                    <div class="del_top">操作</div>
+                </div>
+
+                <!--以下为每一个商品的html结构-->
+                <div class="imfor" v-for="(item,index) in lzy">
+                    <div class="check">
+                        <input type="checkbox" class="Each" v-model="item.isCheck" @click='isCheckinfo(index)' />
+                    </div>
+                    <div class="pudc"><img v-bind:src='item.img'>{{item.name}}</span>
+                    </div>
+                    <div class="pices">{{item.dj}}</div>
+                    <div class="num"><span class="reduc" @click='lose(index)'>&nbsp;-&nbsp;</span><input type="text"
+                            v-bind:value="item.num" /><span class="add" @click='add(index)'>&nbsp;+</span></div>
+                    <div class="totle">{{item.hf}}</div>
+                    <div class="del" @click='del(index)'>删除</div>
+                </div </div>
+                <div class="foot">
+                    <div class="foot_tol"><span>合计：￥</span><span id="susum">{{totalPrice}}</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                lzy: [
+                    { img: 'images/1.jpg', name: "Casio/卡西欧 EX-TR350", dj: 5999.8, num: 1, hf: 5999.8, isCheck: false },
+                    { img: 'images/2.jpg', name: "Canon/佳能PowerShot SX50 HS", dj: 3888.5, num: 1, hf: 3888.5, isCheck: false },
+                    { img: 'images/3.jpg', name: "Sony/索尼 DSC-wx300", dj: 1428.5, num: 1, hf: 1428.5, isCheck: false },
+                    { img: 'images/4.jpg', name: "Fujifilm/富士 instax mini 25", dj: 640.6, num: 1, hf: 640.6, isCheck: false },
+                ],
+                total: 0,
+                isCheckAll: false,
+                j:0,
+            },
+            methods: {
+                lose(index) {
+                    if (this.lzy[index].num > 0) {
+                        this.lzy[index].num--;
+                        this.lzy[index].hf =
+                            this.lzy[index].dj * this.lzy[index].num
+                    } else {
+                        this.lzy[index].num = 0
+                    }
+                },
+                add(index) {
+                    this.lzy[index].num++
+                    this.lzy[index].hf =
+                        this.lzy[index].dj * this.lzy[index].num;
+                    
+                    
+                },
+                del(index) {
+                    if (confirm('是否删除')) {
+                        this.lzy.splice(index, 1)
+                    }
+                },
+                
+                boxinfo() {
+                    this.isCheckAll = !this.isCheckAll;
+                    
+                    if (this.isCheckAll) {
+                        for (var i = 0; i < this.lzy.length; i++) {
+                            this.lzy[i].isCheck = true;
+                        }
+                    } else {
+                        for (var i = 0; i < this.lzy.length; i++) {
+                            this.lzy[i].isCheck = false;
+                        }
+                    }
+                },
+                isCheckinfo(index){
+                    if(this.lzy[index].isCheck==false){
+                        this.j++;
+                    }else{
+                        this.j--;
+                    }
+
+                    if(this.j==this.lzy.length){
+                        this.isCheckAll = true
+                    }else{
+                        this.isCheckAll = false
+                    }
+                    console.log(this.j)
+                },
+            },
+            computed: {
+                totalPrice () {
+                    var total = 0;
+                    for (var i = 0; i < this.lzy.length; i++) {
+                        if (this.lzy[i].isCheck === true) {
+                            var item = this.lzy[i];
+                            total += item.hf;
+                        }
+                    };
+                    
+                    return total
+                }
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

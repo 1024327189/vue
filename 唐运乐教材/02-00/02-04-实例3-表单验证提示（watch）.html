@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+<div id="app">
+    成绩：<input type="text" v-model="record">
+    <p>{{txt}}</p>
+</div>
+
+<script>
+    
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            record:0,
+            txt:''
+        },
+        watch:{
+            record(newVal,oldVal){
+                if(newVal>100){
+                    this.txt = '请输入0~100的数字';
+                }
+            }
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a {
+            color: gray;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="mcg">
+        <div v-bind:style="{backgroundColor:bg1,width:w,height:w}"></div>
+    </div>
+    <script>
+        //v-model指双向数据绑定
+        //v-bind 指单向数据绑定
+        var em = new Vue({
+            el: "#app",
+            data: {
+                bg1: 'pink',
+                mcg: '指令',
+                w:'100px'
+            }
+
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .msgList {
+            width: 600px;
+            margin: auto;
+            border-top: 2px solid #ccc;
+        }
+
+        .msgItem {
+            display: flex;
+            flex-direction: row;
+            border-top: 1px solid #e2e2e2;
+        }
+
+        .msgItem .itemInfo {
+            width: 110px;
+            border-right: 1px solid #e2e2e2;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .msgItem .itemInfo img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .msgItem .itemInfo h5 {
+            margin: 0;
+            padding: 0;
+        }
+
+        .msgItem .itemContent {
+            flex: 1;
+            padding: 10px 0 0 10px;
+            line-height: 150%;
+            font-size: 13px;
+            color: #444;
+        }
+
+        .msgItem .itemContent img {
+            max-width: 450px;
+        }
+
+        .msgAdd {
+            width: 600px;
+            margin: auto;
+            border-top: 2px solid #ccc;
+        }
+
+        .msgAdd textarea {
+            width: 100%;
+            height: 60px;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <!---->
+    <div id="app">
+        <div class="msgList">
+            <h4>留言列表</h4>
+            <div v-for="(item,index) in messages" class="msgItem">
+                <div class="itemInfo">
+                    <img :src="item.avatar" />
+                    <h5>{{item.nickName}}</h5>
+                </div>
+                <div class="itemContent" v-html="item.content"></div>
+            </div>
+        </div>
+
+        <commadd @pulish-fn="acceptMessage"></commadd>
+    </div>
+
+    <!--这是子组件的布局-->
+    <template id="tmpAdd">
+        <div class="msgAdd">
+            <h4>添加留言</h4>
+            昵称：<input v-model="nickName" />
+            头像：
+            <select v-model="avatar">
+                <option value="images/01.jpg">头像1</option>
+                <option value="images/02.jpg">头像2</option>
+                <option value="images/03.jpg">头像3</option>
+                <option value="images/05.jpg">头像4</option>
+            </select>
+            <textarea v-model="words" placeholder="填写留言内容"></textarea>
+            <button @click="publish">发布</button>
+        </div>
+    </template>
+
+
+
+    <script>
+        /*
+        子组件
+        */
+        Vue.component('commadd', {
+            data() {
+                return {
+                    nickName: '',
+                    avatar: '',
+                    words: ''
+                }
+            },
+            template: '#tmpAdd',
+            methods: {
+                publish() {
+                    var tdata = {
+                        niCheng: this.nickName,
+                        touXiang: this.avatar,
+                        neiRong: this.words
+                    };
+
+                    this.words = '';
+                    //向父组件传递数据
+                    this.$emit('pulish-fn', tdata);
+                }
+            }
+        });
+
+
+        //Vue实例化
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                messages: [{
+                    nickName: '张三',
+                    avatar: 'images/01.jpg',
+                    joinTime: 1617679577,
+                    content: '厦门大学由著名爱国华侨领袖陈嘉庚先生于1921年创办，是中国近代教育史上第一所华侨创办的大学。100年来，学校秉承“自强不息，止于至善”的校训，以服务国家、服务人民为己任，先后为国家培养了40多万名优秀人才，形成了鲜明的办学特色'
+                }, {
+                    nickName: '李魁',
+                    avatar: 'images/02.jpg',
+                    joinTime: 1616679577,
+                    content: '这里也被称为“生命禁区”。哨所距中尼边境最近处只有4.5公里，海拔4900多米，氧气含量只有平原的46%。山口附近风力常年在5级以上，冬天还常有暴风雪。'
+                }, {
+                    nickName: '张三',
+                    avatar: 'images/03.jpg',
+                    joinTime: 1617589577,
+                    content: '官兵在国界碑前吃自热食品<img src="images/05.jpg"/>'
+                }]
+            },
+            methods: {
+                acceptMessage(msg) {
+                    console.log(msg);
+
+                    //将获取到的数据做进一步处理
+                    //插入留言数组
+                    this.messages.push({
+                            nickName: msg.niCheng,
+                            avatar: msg.touXiang,
+                            joinTime: 1617679577,
+                            content: msg.neiRong
+                    });
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

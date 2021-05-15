@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<style type="text/css">
+		.box{
+			background-color: #00BFFF;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			width: 500px;
+			height: 300px;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			overflow: hidden;
+		}
+		.table{
+			width: 100%;
+		}
+		.log,.ewmdl{
+			width: 216px;
+			float: left;
+			padding: 16px;
+			text-align: center;
+			border-bottom: 1px solid #000000;
+			cursor: pointer;
+		}
+		
+		.login{
+			position: absolute;
+			left: 50%;
+			transform: translate(-50%,0);
+			width: 100%;
+		}
+		.content{
+			width: 100%;
+			height: 70%;
+			
+		}
+		/* .contentbox-leave-active{
+			animation:lzy .5s;
+		}
+		.contentbox-enter-active{
+			animation:ljy .5s;
+		}
+		@keyframes lzy{
+			from{
+				transform: translate(0%,0);
+			}
+			to{
+				transform: translate(0,100%);
+			}
+		}
+		@keyframes ljy{
+			from{
+				transform: translate(0,100%);
+			}
+			to{
+				transform: translate(0,0);
+			}
+		} */
+		.login p{
+			text-align: center;
+			padding: 10px;
+		}
+		.login button{
+			padding: 10px 80px;
+			background-color: #00BFFF;
+			box-shadow: none;
+			border-radius: 5px ;
+		}
+		.table{
+			width: 100%;
+			height:60px;
+		}
+		.ewm{
+			margin: 30px auto;
+			text-align: center;
+			animation-delay:.7s;
+			-webkit-animation-delay:.7s;
+		}
+	</style>
+	<body>
+		<div id="app">
+			<div class="box">
+				<div class="table">
+					<div class="log" @click="lzyinfo" v-bind:style="{backgroundColor:bgcol1}">账号登录</div>
+					<div class="ewmdl"  @click="ljyinfo" v-bind:style="{backgroundColor:bgcol2}">二维码登录</div>
+				</div>
+				<transition name="contentbox" enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutLeft">
+					<div class="content" v-if="flag">
+						<div class="login">
+							<p><span>账号：</span><input type="text" /></p>
+							<p><span>密码：</span><input type="text" /></p>
+							<p><button type="button" >登录</button></p>
+						</div>
+					</div>
+				</transition>
+				<div class="ewm" v-bind:class="msg">
+					<p>二维码登录更安全</p>
+					<img src="./logewm.png">
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var vm=new Vue({
+			el:'#app',
+			data:{
+				flag:'true',
+				bgcol1:'#00aaff',
+				bgcol2:'#00BFFF',
+				msg:' '
+			},
+			methods:{
+				lzyinfo(){
+					if(this.flag){
+						this.flag='true'
+					}else{
+						this.flag='false'
+					}
+					this.bgcol1='#00aaff';
+					this.bgcol2='#00BFFF';
+					this.msg='  '
+				},
+				ljyinfo(){
+					if(this.flag='false'){
+						this.flag=!this.flag
+					}else{
+						this.flag='true'
+					}
+					this.bgcol1='#00BFFF';
+					this.bgcol2='#00aaff';
+					this.msg='animated  bounceInUp'
+				},
+			}
+		})
+	</script>
+</html>

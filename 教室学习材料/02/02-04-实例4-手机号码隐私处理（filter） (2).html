@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript" src="https://unpkg.com/vue"></script>
+    <div id="lzy">
+        <input type="text" v-model='cityName'>
+        <p>{{mcg|toUp}}</p>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:'#lzy',
+            data:{
+                cityName:0,
+                mcg:''
+            },
+            watch: {
+                cityName(newName,oldName){
+                    this.mcg = newName;
+                }
+            },
+            filters:{
+                toUp(value){
+                    var pint1=value.substring(0,3);
+                    var pint2='****';
+                    var pint3=value.substring(7,11);
+                    return pint1+pint2+pint3
+                }
+            }
+        })
+    </script>
+</body>
+</html>

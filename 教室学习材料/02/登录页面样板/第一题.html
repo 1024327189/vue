@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.1/lib/theme-chalk/index.css">
+		<!-- 引入组件库 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+		<title>Document</title>
+		<style>
+			
+			a{
+				text-decoration: none;
+			}
+			.el-dialog{
+				box-shadow: none;
+				background-color: transparent;
+				text-align: center;
+			}
+			.el-dialog__title{
+				color: #fff;
+			}
+			.box{
+				height: 340px;
+				background-color: #fff;
+				overflow: hidden;
+			}
+			.abox{
+				text-align: center;
+				width: 400px;
+				margin: 0;
+				display: inline-block;
+				float: left;
+				padding:70px 20px 0 20px;
+				transition: all 2s;
+			}
+			.xbox{
+				width: 400px;
+				margin: 0;
+				float: left;
+				height: 300px;
+				background-color: #ed2f6a;
+				padding: 20px;
+				transition: all 2s;
+			}
+			.ewmbox{
+				width: 400px;
+				margin: 0;
+				float: left;
+				height: 300px;
+				background-color: #fff;
+				padding: 20px;
+			}
+			.ewmbox img{
+				width: 50%;
+			}
+			.logselection{
+				height: 100%;
+				width: 100%;
+				cursor: pointer;
+				color: #00FFFF;
+			}
+			
+    </style>
+	</head>
+
+	<body>
+		<div id="app">
+			<el-dialog :title="dialogTitle" :visible='true' width="920px"  >
+				<div class="box">
+					<div class="abox" v-if="show">
+						<component :is="livedata"></component>
+						<div class="" align="center">
+							<a href="JavaScript:;" @click="infologin">已有账号？点击登录</a>
+							<a href="JavaScript:;" style="color: red;margin-left: 30px;" @click="inforegis">没有账号？点击注册</a>
+						</div>
+					</div>
+					
+					
+					<div class="xbox" >
+						<div @click="infobox" class="logselection">
+							<p>{{msg}}</p>
+							<img v-bind:src="lodsrc" />
+						</div>
+						
+					</div>
+					<div class="ewmbox">
+						<h3>手机扫码，安全登录</h3>
+						<img src="./logewm.png" />
+						<p>打开手机扫一扫</p>
+					</div>
+				</div>
+			</el-dialog>
+		</div>
+		<template id="login" >
+			<div class="centoln">
+				<p>
+					<span style="display: inline-block; width: 60px;">账号</span>
+					<el-input placeholder="请输入账号" style="padding-left: 10px; width: 80%;" v-model="username"></el-input>
+				</p>
+				<p>
+					<span style="display: inline-block; width: 60px;">密码</span>
+					<el-input placeholder="请输入密码" show-password style="padding-left: 10px; width: 80%;"  v-model="userpwd"></el-input>
+				</p>
+				<el-button type="primary">登录</el-button>
+
+			</div>
+		</template>
+		<template id="register">
+			<div class="centoln">
+				<p>
+					<span style="display: inline-block; width: 60px;">账号</span>
+					<el-input placeholder="请输入账号" style="padding-left: 10px; width: 80%;"   v-model="username"></el-input>
+				</p>
+				<p>
+					<span style="display: inline-block; width: 60px;">密码</span>
+					<el-input placeholder="请输入密码" show-password style="padding-left: 10px; width: 80%;" v-model="userpwd" ></el-input>
+				</p>
+				<p>
+					<span style="display: inline-block; width: 60px;">重复密码</span>
+					<el-input placeholder="重新输入密码" show-password style="padding-left: 10px; width: 80%;" v-model="userpwde" ></el-input>
+				</p>
+				<el-button type="danger">注册</el-button>
+
+			</div>
+		</template>
+		<script>
+			
+			Vue.component('login', {
+				data() {
+					return {
+						username:'',
+						userpwd:''
+					}
+				},
+				template: '#login'
+			})
+			Vue.component('register', {
+				data() {
+					return {
+						username:'',
+						userpwd:'',
+						userpwde:''
+					}
+				},
+				template: '#register'
+			})
+
+
+
+
+			var nue = new Vue({
+				el: '#app',
+				data: {
+					dialogTitle: '用户登录',
+					livedata: 'login',
+					show:true,
+					msg:'用手机二维码登录更安全',
+					lodsrc:'./二维码.png'
+
+				},
+				methods: {
+					infologin() {
+						this.livedata = 'login'
+					},
+					inforegis() {
+						this.livedata = 'register'
+					},
+					infobox(){
+						this.show=!this.show;
+						if(!this.show){
+							this.msg='喜欢使用账户登录'
+							this.lodsrc='./密码登录.png'
+						}else{
+							this.msg='用手机二维码登录更安全'
+							this.lodsrc='./二维码.png'
+						}
+					}
+				},
+				
+			})
+		</script>
+
+	</body>
+
+</html>

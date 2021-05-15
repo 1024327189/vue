@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a{
+            color: gray;
+        }
+    </style>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div v-bind:style="{backgroundColor:bg1,width:width1,height:height1,}">
+            <div v-bind:style="{backgroundColor:bg2,width:width2,height:height2,}"></div>
+        </div>
+        <button @click="infobtn" style="float: right;">更换背景</button>
+    </div>
+    <script> 
+        var em = new Vue({
+            el: "#app",
+            data: {
+                bg1: 'pink',
+                width1: '100%',
+                height1: '100vh',
+                bg2: 'red',
+                width2: '50%',
+                height2: '50vh',
+            },
+            methods:{
+                infobtn(){
+                    var i=0; i++
+                   if(i%2){
+                    this.bg1='gray';
+                   }
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

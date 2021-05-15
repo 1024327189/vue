@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://lib.baomitu.com/vue-router/3.5.1/vue-router.js"></script>
+    <title>Document</title>
+    <style>
+        #app{
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color: darkgray;
+            padding: 10px;
+        }
+        #app button{
+            background-color: rgb(98, 148, 241);
+            border: none;
+            height: 50px;
+            width: 200px;
+            font-size: 21px;
+            font-family: "楷书";
+            border-radius: 5px;
+            color: #fff;
+        }
+        .content{
+            width: 403px;
+            height: 200px;
+            border: 1px solid #666;
+            text-align: center;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <div class="content"><router-view></router-view></div>
+        <router-link to="/login" tag="button">前往登录</router-link>
+        <router-link to="/register" tag="button">前往注册</router-link>
+    </div>
+
+</body>
+
+<script>
+    var login = {
+        template:"<div><h1>登录组件</h1></div>"
+    }
+    var register = {
+        template:"<div><h1>注册组件</h1></div>"
+    }
+    var routerobj=new VueRouter({
+        routes:[
+            {
+                path:'/login',
+                component:login
+            },
+            {
+                path:'/register',
+                component:register
+
+            }
+    ]
+    })
+    var vm=new Vue({
+        el:'#app',
+        router:routerobj
+    })
+</script>
+
+</html>

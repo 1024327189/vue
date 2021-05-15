@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="show=!show">显示/隐藏</button>
+			<transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceInLeft">
+				<p v-if="show">过渡文字效果</p>
+			</transition>
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					show:true
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="show=!show">动画效果</button>
+			<transition @before-enter="beforeEnter" @enter="enter" @leave="leave" v-bind:css="false">
+				<p v-if="show">文字动画效果</p>
+			</transition>
+		</div>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:'#app',
+				data:{
+					show:false
+				},
+				methods:{
+					beforeEnter(el){
+						el.style.opacity=0
+						el.style.transformOrigin='left'
+						el.style.color='red'
+					},
+					enter(el,done){
+						Velocity(el,{opacity:1,fontSize:'1.4em'},{duration:300})//duration为动画执行时间、毫秒mm
+						Velocity(el,{fontSize:'1em'},{complete:done})
+					},
+					leave(el,done){
+						Velocity(el,{translateX:'15px',rotateZ:'50deg'},{duration:300})//duration为动画执行时间、毫秒mm
+						Velocity(el,{rotateZ:'100deg'},{loop:2})
+						Velocity(el,{rotateZ:'45deg',translateY:'30px',translateX:'30px',opacity:0},{complete:done})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

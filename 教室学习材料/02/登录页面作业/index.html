@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.1/lib/theme-chalk/index.css">
+		<!-- 引入组件库 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+		<title>Document</title>
+		<style>
+			
+			a{
+				text-decoration: none;
+			}
+			.el-dialog{
+				box-shadow: none;
+				background-color: transparent;
+				text-align: center;
+			}
+			.el-dialog__title{
+				color: #fff;
+			}
+			.box{
+				height: 340px;
+				background-color: #fff;
+				
+			}
+			.centoln{
+				text-align: center;
+				width: 400px;
+				margin: 0;
+				display: inline-block;
+				float: left;
+				padding:70px 20px 0 20px;
+			}
+			.xbox{
+				width: 400px;
+				margin: 0;
+				float: left;
+				height: 300px;
+				background-image:linear-gradient(rgb(255,8,5),rgb(255,15,51));
+				padding: 20px;
+			}
+    </style>
+	</head>
+
+	<body>
+		<div id="app">
+			<el-dialog :title="dialogTitle" :visible='true' width="920px"  >
+				<div class="box">
+					<component :is="livedata"></component>
+					<div class="xbox">
+						<div class="" align="center">
+							<a href="JavaScript:;" @click="infologin">已有账号？点击登录</a>
+							<a href="JavaScript:;" style="color: #fff;margin-left: 30px;" @click="inforegis">没有账号？点击注册</a>
+						</div>
+					</div>
+				</div>
+			</el-dialog>
+		</div>
+		<template id="login" >
+			<div class="centoln">
+				<p>
+					<span style="display: inline-block; width: 60px;">账号</span>
+					<el-input placeholder="请输入账号" style="padding-left: 10px; width: 80%;" v-model="username"></el-input>
+				</p>
+				<p>
+					<span style="display: inline-block; width: 60px;">密码</span>
+					<el-input placeholder="请输入密码" show-password style="padding-left: 10px; width: 80%;"  v-model="userpwd"></el-input>
+				</p>
+				<el-button type="primary">登录</el-button>
+
+			</div>
+		</template>
+		<template id="register">
+			<div class="centoln">
+				<p>
+					<span style="display: inline-block; width: 60px;">账号</span>
+					<el-input placeholder="请输入账号" style="padding-left: 10px; width: 80%;"   v-model="username"></el-input>
+				</p>
+				<p>
+					<span style="display: inline-block; width: 60px;">密码</span>
+					<el-input placeholder="请输入密码" show-password style="padding-left: 10px; width: 80%;" v-model="userpwd" ></el-input>
+				</p>
+				<p>
+					<span style="display: inline-block; width: 60px;">重复密码</span>
+					<el-input placeholder="重新输入密码" show-password style="padding-left: 10px; width: 80%;" v-model="userpwde" ></el-input>
+				</p>
+				<el-button type="danger">注册</el-button>
+
+			</div>
+		</template>
+		<script>
+			
+			Vue.component('login', {
+				data() {
+					return {
+						username:'',
+						userpwd:''
+					}
+				},
+				template: '#login'
+			})
+			Vue.component('register', {
+				data() {
+					return {
+						username:'',
+						userpwd:'',
+						userpwde:''
+					}
+				},
+				template: '#register'
+			})
+
+
+
+
+			var nue = new Vue({
+				el: '#app',
+				data: {
+					dialogTitle: '用户登录',
+					livedata: 'login',
+					
+
+				},
+				methods: {
+					infologin() {
+						this.livedata = 'login'
+					},
+					inforegis() {
+						this.livedata = 'register'
+					},
+				},
+				
+			})
+		</script>
+
+	</body>
+
+</html>

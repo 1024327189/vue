@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript" src="https://unpkg.com/vue"></script>
+    <div id="lzy">
+        <p>单价：{{danjia}}</p>
+        <p>数量：<button @click='jian'>-</button>{{shul}}<button @click='jia'>+</button></p>
+        <p>总价：{{alljia}}</p>
+    </div>
+    <script>
+        var lzy = new Vue({
+            el:'#lzy',
+            data:{
+                danjia:20,
+                shul:3,
+                alljia:60
+            },
+            methods: {
+                jian(){
+                    if(this.shul>0){
+                            this.shul--;
+                            this.alljia=this.danjia*this.shul
+                    }
+                },
+                jia(){
+                    this.shul++;
+                    this.alljia=this.danjia*this.shul
+                }
+            },
+        })
+    </script>
+</body>
+</html>

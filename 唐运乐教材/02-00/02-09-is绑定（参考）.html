@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--本案例使用ElementUI实现UI
+    官网：https://element.eleme.cn/#/zh-CN
+    -->
+
+    <!-- 引入 ElementUI框架CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+    <!-- 自定义CSS样式 -->
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .topBar {
+
+            width: 100vw;
+            background-color: #FFF;
+            position: fixed;
+            box-shadow: 0 0 4px 4px #ccc;
+        }
+
+        .topBar-btns {
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .form-label {
+            height: 40px;
+            display: block;
+            line-height: 40px;
+        }
+
+        .form-footer {
+            margin-top: 25px;
+        }
+
+        .form-btn {
+            width: 100%;
+        }
+    </style>
+
+    <!-- 引入 Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入 ElementUI框架 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+</head>
+
+<body>
+
+    <!--
+    -->
+
+    <div id="app">
+
+        <!--使用ElementUI的dialog组件实现弹出层-->
+        <el-dialog :title="dialogTitle" :visible="dialogShow" width="360px">
+
+
+
+            <component :is="showWho"></component>
+
+            <div class="topBar-btns">
+                <el-link type="primary" :underline="false" @click="showLogin">已经有账号，立即登录</el-link>
+                | <el-link type="danger" :underline="false" @click="showRegister">尚未有账号，先注册</el-link>
+            </div>
+
+        </el-dialog>
+
+    </div>
+
+    <!--登录模板-->
+    <template id="template1">
+        <div>
+            <span class="form-label">账号：</span>
+            <el-input></el-input>
+            <span class="form-label">密码：</span>
+            <el-input></el-input>
+
+            <div class="form-footer">
+                <el-button type="primary" class="form-btn">登 录</el-button>
+            </div>
+        </div>
+    </template>
+
+    <!--注册模板-->
+    <template id="template2">
+        <div>
+            <span class="form-label">账号：</span>
+            <el-input></el-input>
+            <span class="form-label">密码：</span>
+            <el-input></el-input>
+
+            <span class="form-label">重复密码：</span>
+            <el-input></el-input>
+
+            <div class="form-footer">
+                <el-button type="danger" class="form-btn">注 册</el-button>
+            </div>
+        </div>
+    </template>
+
+
+
+    <script>
+        /*登录子组件*/
+        Vue.component('login', {
+            data() {
+                return {
+                }
+            },
+            template: '#template1'
+        });
+
+        /*注册子组件*/
+        Vue.component('register', {
+            data() {
+                return {
+                }
+            },
+            template: '#template2'
+        });
+
+
+        /*使用is实现组件的切换
+        使用内部的标签实现component实现
+        */
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                dialogTitle: '用户登录',
+                dialogShow: true,
+                showWho: 'login'
+            },
+            methods: {
+
+                //显示注册
+                showRegister() {
+                    this.showWho = 'register';
+                    this.dialogTitle ='用户注册';
+                },
+
+                //显示登陆
+                showLogin(){
+                    this.showWho = 'login'; 
+                    this.dialogTitle ='用户登陆';
+                }
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>

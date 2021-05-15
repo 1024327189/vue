@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+<div id="app">
+    <input type="text" v-model="cityName">
+    <p>{{txt|toUP}}</p>
+</div>
+
+<script>
+    /*过滤器filters
+    filters中的函数必须有返回值
+    */
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            cityName:'Beijing',
+            txt:''
+        },
+        watch:{
+            cityName(newVal,oldVal){
+                this.txt = newVal;
+            }
+        },
+
+        filters:{
+            toUP(val){
+                return val.toUpperCase();
+            }
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

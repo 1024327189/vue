@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+<div id="app">
+    手机号码：<input type="text" v-model="mobile">
+    <p>{{txt|toUP}}</p>
+</div>
+
+<script>
+    /*过滤器filters
+    telephone
+    phone
+    mobile
+    对手机号码进行处理，实现第4~7位使用*来表示
+
+    18275772731
+    182
+    2731
+
+    substring() 方法用于提取字符串中介于两个指定下标之间的字符。
+    //https://www.w3school.com.cn/jsref/jsref_substring.asp
+    */
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            mobile:'',
+            txt:''
+        },
+        watch:{
+            mobile(newVal,oldVal){
+                this.txt = newVal;
+            }
+        },
+
+        filters:{
+            toUP(val){
+                var part1 = val.substring(0,3);
+                var part2 = '****';
+                var part3 = val.substring(7,11);
+                return part1 + part2 + part3;
+            }
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

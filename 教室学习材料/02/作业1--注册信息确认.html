@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div id="regBox">
+            <p>姓名：<input type="text" v-model="name"><span>{{tishi1}}</span></p>
+            <p>年龄：<input type="text" v-model="age"><span>{{tishi2}}</span></p>
+            <p>手机号码：<input type="text" v-model="mobile"><span>{{tishi3}}</span></p>
+            <p><button @click='info'>注册</button></p>
+        </div>
+
+        <div id="infoBox">
+            <h5>您的注册信息：</h5>
+            <p>姓名：{{Name}}</p>
+            <p>年龄：{{Age}}</p>
+            <p>手机号码：{{Mobile|toUp}}</p>
+        </div>
+
+
+    </div>
+
+    <script>
+
+        /*要求
+        1.年龄长度不能超过20个字符，否则进行提示(在span标签提示)
+        2.年龄，不能超过120，否则进行提示(在span标签提示)
+        3.手机号码，必须是11位数，否则进行提示(在span标签提示)
+
+        4.点击注册按钮后，在下方显示相应的注册信息
+        5.其中注册信息显示的手机号码，必须保持138****1546这样的格式（第4~7位使用星号显示）
+        */
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                Name:'',
+                Age:'',
+                Mobile:'',
+                name: '',
+                age: '',
+                mobile: '',
+                tishi1: '',
+                tishi2: '',
+                tishi3: '',
+
+            },
+            methods: {
+                info(){
+                    this.Name=this.name;
+                    this.Age=this.age;
+                    this.Mobile=this.mobile;
+                }
+            },
+            watch: {
+                name(newName, oldName) {
+                    if (newName.length > 20) {
+                        this.tishi1 = '请输入20以内'
+                    }else{
+                        this.tishi1=''
+                    }
+                },
+                age(newAge, oldAge) {
+                    if (newAge > 120) {
+                        this.tishi2 = '请输入120以内'
+                    }else{
+                        this.tishi2=''
+                    }
+                },
+                mobile(newmobile, oldmobile) {
+                    if(newmobile.length!=11){
+                        this.tishi3 = '请输入11位的手机号'
+                    }else{
+                        this.tishi3=''
+                    }
+                },
+            },
+            filters:{
+                toUp(value){
+                    var pint1=value.substring(0,3);
+                    var pint2='****';
+                    var pint3=value.substring(7,11);
+                    return pint1+pint2+pint3
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
